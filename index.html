@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutismoApoio - Pronto Atendimento</title>
+    <title>AutismoApoio - Comunicação Visual</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Nunito', sans-serif;
         }
         
         :root {
@@ -20,13 +21,18 @@
             --light: #f7f9fc;
             --dark: #2b2d42;
             --success: #06d6a0;
+            --purple: #9b5de5;
+            --pink: #f15bb5;
+            --green: #00bbf9;
         }
         
         body {
             background: linear-gradient(135deg, #e0f7fa, #bbdefb);
             color: var(--dark);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
+            position: relative;
+            overflow-x: hidden;
         }
         
         .container {
@@ -34,23 +40,27 @@
             margin: 0 auto;
             background-color: white;
             border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
             overflow: hidden;
             position: relative;
         }
         
+        /* Header */
         header {
-            background: linear-gradient(90deg, var(--primary), #3a7bff);
+            background: linear-gradient(90deg, var(--purple), #7e4bc7);
             color: white;
             padding: 25px 20px;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
         
         .header-content {
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            z-index: 2;
         }
         
         .logo {
@@ -62,7 +72,14 @@
             align-items: center;
             justify-content: center;
             margin-right: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
         
         .logo i {
@@ -72,27 +89,64 @@
         
         .header-text h1 {
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 5px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
         
         .header-text p {
             font-size: 1rem;
             opacity: 0.9;
+            font-weight: 500;
         }
         
+        /* Navigation */
+        .nav-container {
+            background: linear-gradient(90deg, var(--primary), #3a7bff);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            font-size: 0.8rem;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .nav-item i {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        /* Main Content */
         .main-content {
-            padding: 25px 20px;
+            padding: 25px 20px 90px;
+            min-height: calc(100vh - 200px);
         }
         
         .section-title {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            color: var(--primary);
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--purple);
             text-align: center;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 12px;
+            font-weight: 700;
         }
         
         .section-title::after {
@@ -101,76 +155,180 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 2px;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), #ffc44d);
+            border-radius: 3px;
         }
         
-        .category-grid {
+        /* Communication Grid */
+        .com-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
-        .category-card {
+        .com-card {
             background-color: white;
-            border-radius: 18px;
-            padding: 20px 15px;
+            border-radius: 20px;
+            padding: 15px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border: 2px solid #eef2f7;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            border: 3px solid #f0f4ff;
+            position: relative;
+            overflow: hidden;
         }
         
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        .com-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
             border-color: var(--primary);
         }
         
-        .category-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), #65a1ff);
-            border-radius: 50%;
+        .com-card:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+        
+        .com-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
             margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 40px;
             color: white;
-            font-size: 28px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         
-        .category-card h3 {
+        .com-card h3 {
             font-size: 1.1rem;
             margin-bottom: 8px;
             color: var(--dark);
+            font-weight: 700;
         }
         
-        .category-card p {
+        .com-card p {
             font-size: 0.85rem;
             color: #666;
+            font-weight: 600;
         }
         
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 5px;
+            gap: 12px;
+            margin-bottom: 25px;
+            background-color: var(--light);
+            border-radius: 15px;
+            scrollbar-width: none;
+        }
+        
+        .category-nav::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-btn {
+            flex: 0 0 auto;
+            padding: 12px 25px;
+            background-color: white;
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(90deg, var(--green), #00a2d9);
+            color: white;
+            border-color: var(--green);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 187, 249, 0.3);
+        }
+        
+        /* Pictogram Grid */
+        .picto-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .picto-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 3px solid transparent;
+        }
+        
+        .picto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent);
+        }
+        
+        .picto-img {
+            width: 100%;
+            padding-top: 100%;
+            background-size: 70%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f0f7ff;
+        }
+        
+        .picto-label {
+            padding: 12px 5px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--dark);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Emergency Section */
         .emergency-section {
             background: linear-gradient(135deg, #ff8a8a, var(--secondary));
-            border-radius: 18px;
+            border-radius: 25px;
             padding: 25px 20px;
             text-align: center;
             color: white;
             margin-bottom: 30px;
-            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .emergency-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
+            transform: rotate(30deg);
         }
         
         .emergency-section h2 {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            z-index: 2;
         }
         
         .emergency-section h2 i {
@@ -180,7 +338,7 @@
         
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.15); }
             100% { transform: scale(1); }
         }
         
@@ -188,162 +346,131 @@
             background-color: white;
             color: var(--secondary);
             border: none;
-            padding: 14px 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 16px 35px;
+            font-size: 1.2rem;
+            font-weight: 800;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            margin-top: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            position: relative;
+            z-index: 2;
         }
         
         .emergency-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
-        .resources-section {
-            background-color: var(--light);
-            border-radius: 18px;
-            padding: 25px 20px;
-            margin-bottom: 20px;
+        .emergency-btn:active {
+            transform: scale(0.98);
         }
         
-        .resource-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background-color: white;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .resource-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .resource-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--accent), #ffc44d);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--dark);
-            font-size: 22px;
-            margin-right: 15px;
-        }
-        
-        .resource-text h3 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            color: var(--dark);
-        }
-        
-        .resource-text p {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
+        /* Footer */
         footer {
             background-color: var(--dark);
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 25px 20px;
             font-size: 0.9rem;
+            position: relative;
         }
         
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin-top: 10px;
+            gap: 25px;
+            margin: 15px 0;
         }
         
         .footer-links a {
             color: var(--accent);
             text-decoration: none;
             transition: all 0.3s ease;
+            font-weight: 600;
         }
         
         .footer-links a:hover {
             color: white;
+            transform: translateY(-2px);
         }
         
-        /* Modal de Áudio */
-        .modal {
-            display: none;
+        /* Audio Player */
+        .audio-player-container {
             position: fixed;
-            top: 0;
+            bottom: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
+            right: 0;
+            background: linear-gradient(90deg, var(--pink), #e04aa3);
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .audio-player-container.active {
+            transform: translateY(0);
+        }
+        
+        .player-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .player-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            display: flex;
             align-items: center;
             justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
         }
         
-        .modal-content {
-            background-color: white;
-            border-radius: 25px;
-            width: 90%;
-            max-width: 450px;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        .player-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 3px;
         }
         
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 28px;
+        .player-text p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .player-controls {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .player-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.4rem;
             cursor: pointer;
-            color: #aaa;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
         }
         
-        .close-btn:hover {
-            color: var(--secondary);
-        }
-        
-        .modal-title {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
-        .modal-icon {
-            font-size: 60px;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-        
-        .audio-player {
-            width: 100%;
-            margin: 25px 0;
-        }
-        
-        .audio-description {
-            background-color: var(--light);
-            padding: 15px;
-            border-radius: 15px;
-            font-size: 0.95rem;
-            margin-top: 20px;
-            text-align: left;
+        .player-controls button:hover {
+            transform: scale(1.1);
         }
         
         /* Responsividade */
         @media (max-width: 480px) {
-            .category-grid {
-                grid-template-columns: 1fr;
+            .com-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .picto-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .header-text h1 {
@@ -351,12 +478,38 @@
             }
             
             .section-title {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
+            
+            .nav-item span {
+                display: none;
+            }
+        }
+        
+        /* Animação de bolhas */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: floatBubble 15s infinite ease-in-out;
+            z-index: 1;
+        }
+        
+        @keyframes floatBubble {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-100px) translateX(50px) rotate(90deg); }
+            50% { transform: translateY(-50px) translateX(100px) rotate(180deg); }
+            75% { transform: translateY(-100px) translateX(50px) rotate(270deg); }
+            100% { transform: translateY(0) translateX(0) rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <!-- Bolhas decorativas -->
+    <div class="bubble" style="width: 120px; height: 120px; top: 5%; left: 10%;"></div>
+    <div class="bubble" style="width: 80px; height: 80px; top: 15%; right: 15%;"></div>
+    <div class="bubble" style="width: 60px; height: 60px; bottom: 20%; left: 20%;"></div>
+    
     <div class="container">
         <header>
             <div class="header-content">
@@ -365,91 +518,113 @@
                 </div>
                 <div class="header-text">
                     <h1>AutismoApoio</h1>
-                    <p>Suporte imediato quando você precisa</p>
+                    <p>Comunicação Visual e Suporte</p>
                 </div>
             </div>
         </header>
         
+        <div class="nav-container">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Início</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Comunicação</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-heartbeat"></i>
+                <span>Sensações</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-book"></i>
+                <span>Recursos</span>
+            </a>
+        </div>
+        
         <main class="main-content">
-            <h2 class="section-title">Preciso de Ajuda com:</h2>
+            <h2 class="section-title">Comunicação Visual</h2>
             
-            <div class="category-grid">
-                <div class="category-card" onclick="openModal('ansiedade')">
-                    <div class="category-icon">
+            <div class="category-nav">
+                <div class="category-btn active">Emoções</div>
+                <div class="category-btn">Necessidades</div>
+                <div class="category-btn">Alimentos</div>
+                <div class="category-btn">Atividades</div>
+                <div class="category-btn">Lugares</div>
+            </div>
+            
+            <div class="picto-grid">
+                <!-- Emoções -->
+                <div class="picto-card" data-audio="emo-feliz">
+                    <div class="picto-img" style="background-image: url('https://cdn.pixabay.com/photo/2012/04/18/00/58/smiley-35856_1280.png'); background-color: #ffecb3;"></div>
+                    <div class="picto-label">Feliz</div>
+                </div>
+                
+                <div class="picto-card" data-audio="emo-triste">
+                    <div class="picto-img" style="background-image: url('https://cdn.pixabay.com/photo/2012/04/18/00/58/smiley-35858_1280.png'); background-color: #bbdefb;"></div>
+                    <div class="picto-label">Triste</div>
+                </div>
+                
+                <div class="picto-card" data-audio="emo-bravo">
+                    <div class="picto-img" style="background-image: url('https://cdn.pixabay.com/photo/2012/04/18/00/58/smiley-35857_1280.png'); background-color: #ffccbc;"></div>
+                    <div class="picto-label">Bravo</div>
+                </div>
+                
+                <div class="picto-card" data-audio="emo-cansado">
+                    <div class="picto-img" style="background-image: url('https://cdn.pixabay.com/photo/2012/04/18/00/58/smiley-35859_1280.png'); background-color: #e1bee7;"></div>
+                    <div class="picto-label">Cansado</div>
+                </div>
+                
+                <div class="picto-card" data-audio="emo-medo">
+                    <div class="picto-img" style="background-image: url('https://cdn.pixabay.com/photo/2016/08/21/18/09/emoticon-1610518_1280.png'); background-color: #c5e1a5;"></div>
+                    <div class="picto-label">Com medo</div>
+                </div>
+                
+                <div class="picto-card" data-audio="emo-surpreso">
+                    <div class="picto-img" style="background-image: url('https://cdn.pixabay.com/photo/2016/08/21/18/09/emoticon-1610519_1280.png'); background-color: #ffe082;"></div>
+                    <div class="picto-label">Surpreso</div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Recursos Rápidos</h2>
+            
+            <div class="com-grid">
+                <div class="com-card" onclick="playAudio('ansiedade')">
+                    <div class="com-icon" style="background: linear-gradient(135deg, var(--pink), #e04aa3);">
                         <i class="fas fa-heartbeat"></i>
                     </div>
                     <h3>Ansiedade</h3>
-                    <p>Técnicas para reduzir a ansiedade</p>
+                    <p>Técnicas de relaxamento</p>
                 </div>
                 
-                <div class="category-card" onclick="openModal('sensorial')">
-                    <div class="category-icon">
+                <div class="com-card" onclick="playAudio('sensorial')">
+                    <div class="com-icon" style="background: linear-gradient(135deg, var(--green), #00a2d9);">
                         <i class="fas fa-volume-off"></i>
                     </div>
                     <h3>Sensorial</h3>
-                    <p>Ajustar estímulos sensoriais</p>
+                    <p>Redução de estímulos</p>
                 </div>
                 
-                <div class="category-card" onclick="openModal('comunicacao')">
-                    <div class="category-icon">
+                <div class="com-card" onclick="playAudio('comunicacao')">
+                    <div class="com-icon" style="background: linear-gradient(135deg, var(--accent), #ffc44d);">
                         <i class="fas fa-comments"></i>
                     </div>
                     <h3>Comunicação</h3>
-                    <p>Expressar necessidades e sentimentos</p>
-                </div>
-                
-                <div class="category-card" onclick="openModal('rotina')">
-                    <div class="category-icon">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                    <h3>Rotina</h3>
-                    <p>Organização e planejamento</p>
+                    <p>Expressar necessidades</p>
                 </div>
             </div>
             
             <div class="emergency-section">
                 <h2><i class="fas fa-bell"></i> SOS Emergência</h2>
                 <p>Toque aqui se precisar de ajuda imediata para crises intensas</p>
-                <button class="emergency-btn" onclick="openModal('emergencia')">Preciso de Ajuda Agora</button>
-            </div>
-            
-            <div class="resources-section">
-                <h2 class="section-title">Recursos de Apoio</h2>
-                
-                <div class="resource-item">
-                    <div class="resource-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <div class="resource-text">
-                        <h3>Histórias Sociais</h3>
-                        <p>Navegue por histórias que ajudam a entender situações</p>
-                    </div>
-                </div>
-                
-                <div class="resource-item">
-                    <div class="resource-icon">
-                        <i class="fas fa-hands"></i>
-                    </div>
-                    <div class="resource-text">
-                        <h3>Técnicas de Regulação</h3>
-                        <p>Exercícios para autorregulação emocional</p>
-                    </div>
-                </div>
-                
-                <div class="resource-item">
-                    <div class="resource-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="resource-text">
-                        <h3>Encontre Apoio</h3>
-                        <p>Profissionais e instituições próximas a você</p>
-                    </div>
-                </div>
+                <button class="emergency-btn" onclick="playAudio('emergencia')">
+                    <i class="fas fa-first-aid"></i> Preciso de Ajuda
+                </button>
             </div>
         </main>
         
         <footer>
-            <p>AutismoApoio &copy; 2023 - Todos os direitos reservados</p>
+            <p>AutismoApoio &copy; 2023 - Suporte para Comunicação</p>
             <div class="footer-links">
                 <a href="#">Sobre</a>
                 <a href="#">Contato</a>
@@ -459,108 +634,184 @@
         </footer>
     </div>
     
-    <!-- Modal de Áudio -->
-    <div class="modal" id="audioModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="modal-icon">
-                <i class="fas fa-music" id="modalIcon"></i>
+    <!-- Player de Áudio Fixo -->
+    <div class="audio-player-container" id="audioPlayer">
+        <div class="player-info">
+            <div class="player-icon">
+                <i class="fas fa-music" id="playerIcon"></i>
             </div>
-            <h2 class="modal-title" id="modalTitle">Título</h2>
-            
-            <audio controls class="audio-player" id="audioPlayer">
-                Seu navegador não suporta o elemento de áudio.
-            </audio>
-            
-            <div class="audio-description" id="audioDescription">
-                Descrição do áudio será exibida aqui.
+            <div class="player-text">
+                <h4 id="playerTitle">Exercício de Respiração</h4>
+                <p id="playerDesc">Técnica para acalmar</p>
             </div>
+        </div>
+        <div class="player-controls">
+            <button onclick="restartAudio()">
+                <i class="fas fa-redo"></i>
+            </button>
+            <button onclick="closePlayer()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
     </div>
 
     <script>
         // Dados dos recursos de áudio
         const audioResources = {
-            ansiedade: {
+            "ansiedade": {
                 title: "Exercício de Respiração",
                 icon: "fas fa-wind",
                 audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                description: "Este exercício guiado de respiração profunda ajuda a acalmar o sistema nervoso. Siga as instruções: inspire lentamente pelo nariz contando até 4, segure a respiração por 2 segundos, e expire pela boca contando até 6. Repita por 5 minutos."
+                description: "Inspire lentamente pelo nariz contando até 4, segure por 2 segundos e expire pela boca contando até 6."
             },
-            sensorial: {
+            "sensorial": {
                 title: "Sons da Natureza",
                 icon: "fas fa-tree",
                 audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                description: "Este áudio de sons da natureza é projetado para ajudar a reduzir a sobrecarga sensorial. Encontre um local confortável, use fones de ouvido se preferir, e concentre-se nos sons suaves da floresta e dos pássaros."
+                description: "Sons suaves da natureza para reduzir a sobrecarga sensorial."
             },
-            comunicacao: {
+            "comunicacao": {
                 title: "Expressando Emoções",
                 icon: "fas fa-comment-dots",
                 audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-                description: "Este guia ajuda a identificar e expressar emoções. Você aprenderá técnicas simples para comunicar seus sentimentos e necessidades usando linguagem clara e direta, mesmo em momentos desafiadores."
+                description: "Técnicas para comunicar sentimentos e necessidades."
             },
-            rotina: {
-                title: "Organizando o Dia",
-                icon: "fas fa-calendar-check",
-                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-                description: "Este áudio fornece uma estrutura para organizar sua rotina diária. Inclui dicas para criar sequências visuais, dividir tarefas em etapas menores e usar lembretes para transições suaves entre atividades."
-            },
-            emergencia: {
+            "emergencia": {
                 title: "SOS Acalmar Crises",
                 icon: "fas fa-first-aid",
                 audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
-                description: "Este recurso de emergência guiará você através de técnicas imediatas para lidar com crises intensas. Siga as instruções passo a passo para criar um ambiente seguro, regular sua respiração e reduzir a sobrecarga sensorial."
+                description: "Técnicas imediatas para lidar com crises intensas."
+            },
+            "emo-feliz": {
+                title: "Estou feliz!",
+                icon: "fas fa-smile",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+                description: "Expressão de felicidade e contentamento."
+            },
+            "emo-triste": {
+                title: "Estou triste",
+                icon: "fas fa-sad-tear",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+                description: "Expressão de tristeza ou desapontamento."
+            },
+            "emo-bravo": {
+                title: "Estou bravo",
+                icon: "fas fa-angry",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+                description: "Expressão de raiva ou frustração."
+            },
+            "emo-cansado": {
+                title: "Estou cansado",
+                icon: "fas fa-tired",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+                description: "Expressão de cansaço ou necessidade de descanso."
+            },
+            "emo-medo": {
+                title: "Estou com medo",
+                icon: "fas fa-surprise",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+                description: "Expressão de medo ou ansiedade."
+            },
+            "emo-surpreso": {
+                title: "Estou surpreso",
+                icon: "fas fa-surprise",
+                audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
+                description: "Expressão de surpresa ou admiração."
             }
         };
         
-        // Funções para abrir e fechar o modal
-        function openModal(category) {
-            const modal = document.getElementById('audioModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalIcon = document.getElementById('modalIcon');
-            const audioPlayer = document.getElementById('audioPlayer');
-            const audioDescription = document.getElementById('audioDescription');
-            
-            // Carregar os dados apropriados
+        // Elementos do DOM
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playerTitle = document.getElementById('playerTitle');
+        const playerDesc = document.getElementById('playerDesc');
+        const playerIcon = document.getElementById('playerIcon');
+        const audioElement = new Audio();
+        
+        // Função para tocar áudio
+        function playAudio(category) {
             const resource = audioResources[category];
-            modalTitle.textContent = resource.title;
-            modalIcon.className = resource.icon;
-            audioPlayer.src = resource.audio;
-            audioDescription.textContent = resource.description;
             
-            // Mostrar o modal
-            modal.style.display = 'flex';
-            
-            // Tocar o áudio automaticamente
-            setTimeout(() => {
-                audioPlayer.play();
-            }, 500);
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('audioModal');
-            const audioPlayer = document.getElementById('audioPlayer');
-            
-            // Parar o áudio
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
-            
-            // Fechar o modal
-            modal.style.display = 'none';
-        }
-        
-        // Fechar modal ao clicar fora dele
-        window.onclick = function(event) {
-            const modal = document.getElementById('audioModal');
-            if (event.target === modal) {
-                closeModal();
+            if (resource) {
+                // Atualizar informações no player
+                playerTitle.textContent = resource.title;
+                playerDesc.textContent = resource.description;
+                playerIcon.className = resource.icon;
+                
+                // Definir e tocar o áudio
+                audioElement.src = resource.audio;
+                audioElement.play();
+                
+                // Mostrar o player
+                audioPlayer.classList.add('active');
             }
-        };
+        }
+        
+        // Fechar o player
+        function closePlayer() {
+            audioElement.pause();
+            audioPlayer.classList.remove('active');
+        }
+        
+        // Reiniciar o áudio
+        function restartAudio() {
+            audioElement.currentTime = 0;
+            audioElement.play();
+        }
+        
+        // Configurar os cards de comunicação visual
+        document.querySelectorAll('.picto-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const audioKey = this.getAttribute('data-audio');
+                playAudio(audioKey);
+                
+                // Efeito visual de clique
+                this.style.transform = 'scale(0.95)';
+                this.style.borderColor = '#ff6b6b';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.borderColor = '';
+                }, 300);
+            });
+        });
+        
+        // Configurar botões de categoria
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remover classe ativa de todos
+                document.querySelectorAll('.category-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                
+                // Adicionar classe ativa ao clicado
+                this.classList.add('active');
+                
+                // Em uma aplicação real, isso carregaria novos pictogramas
+            });
+        });
+        
+        // Configurar cards principais
+        document.querySelectorAll('.com-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'translateY(-8px) scale(1.03)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 300);
+            });
+        });
         
         // Simular funcionalidade do botão de emergência
         document.querySelector('.emergency-btn').addEventListener('click', function() {
-            // Em uma aplicação real, isso enviaria uma notificação para contatos de emergência
-            alert("SOS Ativado! Seus contatos de emergência foram notificados. Enquanto isso, siga as instruções do áudio de acalmar.");
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Ativando SOS...';
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-check"></i> SOS Ativado!';
+                this.style.background = 'linear-gradient(135deg, #06d6a0, #05b88b)';
+                
+                // Reset após 3 segundos
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-first-aid"></i> Preciso de Ajuda';
+                    this.style.background = 'white';
+                }, 3000);
+            }, 1500);
         });
     </script>
 </body>
