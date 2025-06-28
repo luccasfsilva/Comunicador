@@ -3,174 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comunicador para Crianças com Autismo</title>
+    <title>Comunicador Amigável | Auxílio para Crianças com Autismo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #2630bf;
+            --primary-light: #606ceb;
+            --primary-dark: #4527a0;
+            --secondary: #26a69a;
+            --accent: #ff7043;
+            --background: #f5f7fb;
+            --card-bg: #ffffff;
+            --text-dark: #37474f;
+            --text-light: #607d8b;
+            --success: #66bb6a;
+            --warning: #ffca28;
+            --error: #ef5350;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary: #8c90bf;
+            --primary-light: #9575cd;
+            --primary-dark: #5e35b1;
+            --secondary: #26c6da;
+            --accent: #ff8a65;
+            --background: #121212;
+            --card-bg: #1e1e1e;
+            --text-dark: #e0e0e0;
+            --text-light: #b0bec5;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            transition: var(--transition);
+            color: var(--text-dark);
+            background-color: var(--background);
         }
-        
+
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             overflow: hidden;
             margin-top: 20px;
+            transition: var(--transition);
         }
-        
+
         header {
-            background: #4a00e0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
             text-align: center;
-            padding: 20px;
-            border-bottom: 5px solid #8e2de2;
+            padding: 25px 20px;
+            position: relative;
         }
-        
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(15deg);
+        }
+
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
-        
+
         header p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
         }
-        
+
+        .message-display-container {
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.03);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .message-display {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 2.2rem;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            border: 3px dashed var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .category-tabs {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 20px;
+            gap: 10px;
+            background: var(--card-bg);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+            scrollbar-width: thin;
+        }
+
+        .category-tab {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .category-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .category-tab:hover:not(.active) {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
         .communication-area {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            padding: 20px;
-            background: #f0f4ff;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.02);
+            min-height: 400px;
         }
-        
+
         .message-box {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px 20px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            min-height: 200px;
+            box-shadow: var(--shadow);
+            min-height: 180px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .message-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
         .message-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-            border-color: #8e2de2;
+            transform: translateY(-7px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
         }
-        
+
+        .message-box:hover::before {
+            transform: scaleX(1);
+        }
+
         .message-box:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
         }
-        
+
         .message-box i {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             margin-bottom: 15px;
-            color: #4a00e0;
+            color: var(--primary);
+            transition: var(--transition);
         }
-        
+
         .message-box h3 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 10px;
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 600;
         }
-        
+
         .message-box p {
-            color: #666;
-            font-size: 1rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
-        
-        .message-display {
-            background: white;
-            margin: 20px;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            font-size: 2rem;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 3px dashed #4a00e0;
-            color: #4a00e0;
-            font-weight: bold;
-        }
-        
+
         .controls {
             display: flex;
             justify-content: center;
-            padding: 20px;
-            gap: 15px;
-            background: #f0f4ff;
-            border-top: 2px solid #e0e6ff;
+            padding: 25px;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.02);
+            border-top: 2px solid rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
         }
-        
+
         .control-btn {
-            background: #4a00e0;
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 15px 25px;
+            padding: 16px 30px;
             font-size: 1.1rem;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 15px rgba(74, 0, 224, 0.3);
+            gap: 12px;
+            box-shadow: 0 5px 15px rgba(94, 53, 177, 0.3);
+            font-weight: 500;
         }
-        
+
         .control-btn:hover {
-            background: #8e2de2;
+            background: var(--primary-dark);
             transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(94, 53, 177, 0.4);
         }
-        
+
         .control-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
         }
-        
+
+        .control-btn.secondary {
+            background: var(--secondary);
+            box-shadow: 0 5px 15px rgba(38, 166, 154, 0.3);
+        }
+
+        .control-btn.secondary:hover {
+            background: #00897b;
+            box-shadow: 0 8px 20px rgba(38, 166, 154, 0.4);
+        }
+
+        .control-btn.warning {
+            background: var(--accent);
+            box-shadow: 0 5px 15px rgba(255, 112, 67, 0.3);
+        }
+
+        .control-btn.warning:hover {
+            background: #f4511e;
+            box-shadow: 0 8px 20px rgba(255, 112, 67, 0.4);
+        }
+
         footer {
             text-align: center;
-            padding: 20px;
-            color: white;
-            font-size: 1.1rem;
-            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            color: var(--text-dark);
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.03);
             width: 100%;
-            margin-top: auto;
+            margin-top: 20px;
+            border-radius: var(--radius);
+            max-width: 1200px;
+        }
+
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-box {
+            animation: fadeIn 0.4s ease-out backwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .communication-area {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .message-display {
+                font-size: 1.8rem;
+                min-height: 100px;
+                padding: 20px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 650px) {
             .communication-area {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            header h1 {
-                font-size: 2rem;
+            .controls {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .message-box {
-                min-height: 180px;
+            .control-btn {
+                width: 80%;
+                justify-content: center;
+            }
+            
+            .category-tabs {
+                padding: 10px 15px;
             }
         }
         
@@ -179,70 +373,166 @@
                 grid-template-columns: 1fr;
             }
             
-            .controls {
-                flex-direction: column;
+            .message-display {
+                font-size: 1.6rem;
             }
+            
+            header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
             <h1><i class="fas fa-comments"></i> Comunicador Amigável</h1>
-            <p>Toque nos botões para se comunicar</p>
+            <p>Toque nos botões para expressar o que você está sentindo ou precisa</p>
         </header>
         
-        <div class="message-display" id="messageDisplay">
-            Toque em um botão para começar...
+        <div class="message-display-container">
+            <div class="message-display" id="messageDisplay">
+                Toque em um botão para começar...
+            </div>
         </div>
         
-        <div class="communication-area">
-            <div class="message-box" onclick="speak('Estou com fome', 'fome')">
+        <div class="category-tabs" id="categoryTabs">
+            <div class="category-tab active" data-category="all">Todas</div>
+            <div class="category-tab" data-category="needs">Necessidades</div>
+            <div class="category-tab" data-category="feelings">Sentimentos</div>
+            <div class="category-tab" data-category="activities">Atividades</div>
+            <div class="category-tab" data-category="requests">Pedidos</div>
+        </div>
+        
+        <div class="communication-area" id="communicationArea">
+            <!-- Necessidades -->
+            <div class="message-box" data-category="needs" onclick="speak('Estou com fome', 'fome')">
                 <i class="fas fa-apple-alt"></i>
                 <h3>Estou com fome</h3>
                 <p>Quero comer algo</p>
             </div>
             
-            <div class="message-box" onclick="speak('Estou com sede', 'sede')">
+            <div class="message-box" data-category="needs" onclick="speak('Estou com sede', 'sede')">
                 <i class="fas fa-glass-water"></i>
                 <h3>Estou com sede</h3>
                 <p>Quero beber água</p>
             </div>
             
-            <div class="message-box" onclick="speak('Preciso ir ao banheiro', 'banheiro')">
+            <div class="message-box" data-category="needs" onclick="speak('Preciso ir ao banheiro', 'banheiro')">
                 <i class="fas fa-toilet"></i>
                 <h3>Preciso ir ao banheiro</h3>
                 <p>Quero usar o banheiro</p>
             </div>
             
-            <div class="message-box" onclick="speak('Estou cansado', 'cansado')">
+            <div class="message-box" data-category="needs" onclick="speak('Estou cansado', 'cansado')">
                 <i class="fas fa-bed"></i>
                 <h3>Estou cansado</h3>
                 <p>Quero descansar</p>
             </div>
             
-            <div class="message-box" onclick="speak('Estou feliz', 'feliz')">
+            <!-- Sentimentos -->
+            <div class="message-box" data-category="feelings" onclick="speak('Estou feliz', 'feliz')">
                 <i class="fas fa-smile"></i>
                 <h3>Estou feliz</h3>
                 <p>Sinto-me bem</p>
             </div>
             
-            <div class="message-box" onclick="speak('Estou triste', 'triste')">
+            <div class="message-box" data-category="feelings" onclick="speak('Estou triste', 'triste')">
                 <i class="fas fa-sad-tear"></i>
                 <h3>Estou triste</h3>
                 <p>Sinto-me mal</p>
             </div>
             
-            <div class="message-box" onclick="speak('Quero brincar', 'brincar')">
+            <div class="message-box" data-category="feelings" onclick="speak('Estou com medo', 'medo')">
+                <i class="fas fa-flushed"></i>
+                <h3>Estou com medo</h3>
+                <p>Preciso de conforto</p>
+            </div>
+            
+            <div class="message-box" data-category="feelings" onclick="speak('Estou bravo', 'bravo')">
+                <i class="fas fa-angry"></i>
+                <h3>Estou bravo</h3>
+                <p>Estou chateado</p>
+            </div>
+            
+            <!-- Atividades -->
+            <div class="message-box" data-category="activities" onclick="speak('Quero brincar', 'brincar')">
                 <i class="fas fa-gamepad"></i>
                 <h3>Quero brincar</h3>
                 <p>Vamos nos divertir</p>
             </div>
             
-            <div class="message-box" onclick="speak('Preciso de ajuda', 'ajuda')">
+            <div class="message-box" data-category="activities" onclick="speak('Quero desenhar', 'desenhar')">
+                <i class="fas fa-pencil-alt"></i>
+                <h3>Quero desenhar</h3>
+                <p>Vamos fazer arte</p>
+            </div>
+            
+            <div class="message-box" data-category="activities" onclick="speak('Quero ouvir música', 'musica')">
+                <i class="fas fa-music"></i>
+                <h3>Quero ouvir música</h3>
+                <p>Vamos cantar juntos</p>
+            </div>
+            
+            <div class="message-box" data-category="activities" onclick="speak('Quero ler um livro', 'ler')">
+                <i class="fas fa-book"></i>
+                <h3>Quero ler um livro</h3>
+                <p>Vamos ler juntos</p>
+            </div>
+            
+            <!-- Pedidos -->
+            <div class="message-box" data-category="requests" onclick="speak('Preciso de ajuda', 'ajuda')">
                 <i class="fas fa-hands-helping"></i>
                 <h3>Preciso de ajuda</h3>
                 <p>Me ajude por favor</p>
+            </div>
+            
+            <div class="message-box" data-category="requests" onclick="speak('Quero um abraço', 'abraco')">
+                <i class="fas fa-hands"></i>
+                <h3>Quero um abraço</h3>
+                <p>Preciso de carinho</p>
+            </div>
+            
+            <div class="message-box" data-category="requests" onclick="speak('Preciso de um tempo', 'tempo')">
+                <i class="fas fa-hourglass-half"></i>
+                <h3>Preciso de um tempo</h3>
+                <p>Quero ficar sozinho</p>
+            </div>
+            
+            <div class="message-box" data-category="requests" onclick="speak('Não entendi', 'entender')">
+                <i class="fas fa-question-circle"></i>
+                <h3>Não entendi</h3>
+                <p>Pode repetir por favor?</p>
             </div>
         </div>
         
@@ -250,103 +540,185 @@
             <button class="control-btn" onclick="repeatMessage()">
                 <i class="fas fa-redo"></i> Repetir
             </button>
-            <button class="control-btn" onclick="clearMessage()">
+            <button class="control-btn secondary" onclick="clearMessage()">
                 <i class="fas fa-eraser"></i> Limpar
             </button>
-            <button class="control-btn" onclick="toggleSound()">
-                <i class="fas fa-volume-up" id="soundIcon"></i> Som
+            <button class="control-btn warning" onclick="toggleSound()">
+                <i class="fas fa-volume-up" id="soundIcon"></i> <span>Som</span>
             </button>
         </div>
     </div>
     
     <footer>
-        <p>Comunicador para Crianças com Autismo | Desenvolvido com ❤️ para ajudar na comunicação</p>
+        <p>Comunicador para Crianças com Autismo | Desenvolvido com ❤️ para ajudar na comunicação e expressão</p>
     </footer>
     
     <audio id="soundEffect" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
     
     <script>
+        // Variáveis globais
         let lastMessage = '';
         let soundEnabled = true;
-        
+        let isDarkMode = false;
+        const messageColors = {
+            'fome': '#FF6B6B',
+            'sede': '#4ECDC4',
+            'banheiro': '#FFD166',
+            'cansado': '#118AB2',
+            'feliz': '#06D6A0',
+            'triste': '#5E60CE',
+            'medo': '#9C27B0',
+            'bravo': '#F44336',
+            'brincar': '#FF9E6D',
+            'desenhar': '#AB47BC',
+            'musica': '#29B6F6',
+            'ler': '#5C6BC0',
+            'ajuda': '#EF476F',
+            'abraco': '#FF80AB',
+            'tempo': '#78909C',
+            'entender': '#26C6DA'
+        };
+
+        // Função para falar a mensagem
         function speak(message, type) {
             const messageDisplay = document.getElementById('messageDisplay');
             messageDisplay.textContent = message;
             lastMessage = message;
             
-            if (soundEnabled) {
-                // Play sound effect
-                const sound = document.getElementById('soundEffect');
-                sound.currentTime = 0;
-                sound.play();
-                
-                // Use speech synthesis if available
-                if ('speechSynthesis' in window) {
-                    const utterance = new SpeechSynthesisUtterance(message);
-                    utterance.lang = 'pt-BR';
-                    utterance.rate = 0.9; // Slower speed for clarity
-                    speechSynthesis.speak(utterance);
-                }
-            }
-            
-            // Visual feedback
+            // Feedback visual
             messageDisplay.style.animation = 'none';
             setTimeout(() => {
-                messageDisplay.style.animation = 'pulse 0.5s';
+                messageDisplay.style.animation = 'pulse 0.6s';
             }, 10);
             
-            // Add custom styles based on message type
-            const colors = {
-                'fome': '#FF6B6B',
-                'sede': '#4ECDC4',
-                'banheiro': '#FFD166',
-                'cansado': '#118AB2',
-                'feliz': '#06D6A0',
-                'triste': '#5E60CE',
-                'brincar': '#FF9E6D',
-                'ajuda': '#EF476F'
-            };
+            // Aplicar cor baseada no tipo
+            const color = messageColors[type] || '#5e35b1';
+            messageDisplay.style.borderColor = color;
+            messageDisplay.style.color = color;
             
-            messageDisplay.style.borderColor = colors[type] || '#4a00e0';
-            messageDisplay.style.color = colors[type] || '#4a00e0';
+            // Efeitos sonoros e fala
+            if (soundEnabled) {
+                playSound();
+                speakMessage(message);
+            }
         }
-        
+
+        // Reproduzir efeito sonoro
+        function playSound() {
+            const sound = document.getElementById('soundEffect');
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Erro ao reproduzir som:", e));
+        }
+
+        // Sintetizar fala
+        function speakMessage(message) {
+            if ('speechSynthesis' in window) {
+                // Cancelar qualquer fala em andamento
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(message);
+                utterance.lang = 'pt-BR';
+                utterance.rate = 0.85;
+                utterance.pitch = 1.1;
+                utterance.volume = 1;
+                
+                // Tente encontrar uma voz feminina
+                const voices = speechSynthesis.getVoices();
+                const femaleVoice = voices.find(voice => 
+                    voice.lang.includes('pt') && voice.name.includes('female')
+                );
+                
+                if (femaleVoice) {
+                    utterance.voice = femaleVoice;
+                }
+                
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Repetir a última mensagem
         function repeatMessage() {
             if (lastMessage) {
                 speak(lastMessage);
             }
         }
-        
+
+        // Limpar a mensagem
         function clearMessage() {
-            document.getElementById('messageDisplay').textContent = 'Toque em um botão para começar...';
-            document.getElementById('messageDisplay').style.borderColor = '#4a00e0';
-            document.getElementById('messageDisplay').style.color = '#4a00e0';
+            const messageDisplay = document.getElementById('messageDisplay');
+            messageDisplay.textContent = 'Toque em um botão para começar...';
+            messageDisplay.style.borderColor = '#5e35b1';
+            messageDisplay.style.color = '#5e35b1';
             lastMessage = '';
         }
-        
+
+        // Alternar som
         function toggleSound() {
             soundEnabled = !soundEnabled;
             const soundIcon = document.getElementById('soundIcon');
+            const soundText = soundIcon.nextElementSibling;
             
             if (soundEnabled) {
                 soundIcon.className = 'fas fa-volume-up';
-                soundIcon.parentNode.querySelector('span').textContent = ' Som';
+                soundText.textContent = ' Som';
             } else {
                 soundIcon.className = 'fas fa-volume-mute';
-                soundIcon.parentNode.querySelector('span').textContent = ' Mudo';
+                soundText.textContent = ' Mudo';
             }
         }
-        
-        // Add pulse animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-                100% { transform: scale(1); }
+
+        // Alternar modo escuro/claro
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const themeToggle = document.getElementById('themeToggle');
+            document.body.setAttribute('data-theme', isDarkMode ? 'dark' : '');
+            
+            if (isDarkMode) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
             }
-        `;
-        document.head.appendChild(style);
+        }
+
+        // Filtro por categoria
+        function filterByCategory(category) {
+            const boxes = document.querySelectorAll('.message-box');
+            const tabs = document.querySelectorAll('.category-tab');
+            
+            // Atualizar guias ativas
+            tabs.forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.category === category);
+            });
+            
+            // Filtrar mensagens
+            boxes.forEach(box => {
+                if (category === 'all') {
+                    box.style.display = 'flex';
+                } else {
+                    box.style.display = box.dataset.category === category ? 'flex' : 'none';
+                }
+            });
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar alternador de tema
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            
+            // Configurar filtros de categoria
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    filterByCategory(tab.dataset.category);
+                });
+            });
+            
+            // Carregar vozes quando disponíveis
+            if ('speechSynthesis' in window) {
+                speechSynthesis.onvoiceschanged = function() {
+                    // Vozes carregadas
+                };
+            }
+        });
     </script>
 </body>
 </html>
