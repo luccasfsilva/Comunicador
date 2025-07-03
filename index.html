@@ -7,33 +7,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2630bf;
-            --primary-light: #606ceb;
-            --primary-dark: #4527a0;
-            --secondary: #26a69a;
-            --accent: #ff7043;
-            --background: #f5f7fb;
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3a0ca3;
+            --secondary: #2ec4b6;
+            --accent: #ff9e6d;
+            --background: #f8f9fa;
             --card-bg: #ffffff;
-            --text-dark: #37474f;
-            --text-light: #607d8b;
-            --success: #66bb6a;
-            --warning: #ffca28;
-            --error: #ef5350;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --radius: 16px;
-            --transition: all 0.3s ease;
+            --text-dark: #212529;
+            --text-light: #6c757d;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --error: #e63946;
+            --shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            --radius: 20px;
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --sidebar-width: 280px;
         }
 
         [data-theme="dark"] {
-            --primary: #8c90bf;
-            --primary-light: #9575cd;
-            --primary-dark: #5e35b1;
-            --secondary: #26c6da;
-            --accent: #ff8a65;
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3a0ca3;
+            --secondary: #2ec4b6;
+            --accent: #ff9e6d;
             --background: #121212;
             --card-bg: #1e1e1e;
             --text-dark: #e0e0e0;
-            --text-light: #b0bec5;
+            --text-light: #a0a0a0;
         }
 
         * {
@@ -44,121 +45,232 @@
         }
 
         body {
-          background-image: url('');
-            
+            background: var(--background);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
             transition: var(--transition);
-          
             color: var(--text-dark);
-            background-color: var(--background);
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
+        .app-container {
+            display: flex;
             width: 100%;
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            margin-top: 20px;
-            transition: var(--transition);
+            min-height: 100vh;
         }
 
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: white;
-            text-align: center;
             padding: 25px 20px;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            z-index: 100;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.8;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .sidebar-item.active {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .sidebar-item i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
         }
 
         .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            padding: 12px 20px;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             color: white;
-            font-size: 1.5rem;
+            font-weight: 500;
             transition: var(--transition);
+            margin-top: auto;
         }
 
         .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(15deg);
+            background: rgba(255, 255, 255, 0.15);
         }
 
-        header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            font-weight: 600;
+        .theme-toggle i {
+            font-size: 1.3rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
             display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
             gap: 15px;
         }
 
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border-radius: 50px;
+            border: none;
+            background: var(--card-bg);
+            box-shadow: var(--shadow);
+            font-size: 1rem;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .search-container input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.2rem;
         }
 
         .message-display-container {
+            background: var(--card-bg);
+            border-radius: var(--radius);
             padding: 25px;
-            background: rgba(0, 0, 0, 0.03);
-            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--primary);
             transition: var(--transition);
         }
 
         .message-display {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: var(--radius);
             text-align: center;
             font-size: 2.2rem;
             min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--shadow);
-            border: 3px dashed var(--primary);
-            color: var(--primary);
             font-weight: bold;
             transition: var(--transition);
+            padding: 20px;
+        }
+
+        .message-display-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .category-tabs {
             display: flex;
             overflow-x: auto;
-            padding: 15px 20px;
+            padding: 15px 5px;
             gap: 10px;
             background: var(--card-bg);
-            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
             scrollbar-width: thin;
         }
 
         .category-tab {
-            background: rgba(0, 0, 0, 0.05);
-            padding: 10px 20px;
+            background: rgba(67, 97, 238, 0.1);
+            padding: 12px 25px;
             border-radius: 50px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             white-space: nowrap;
             flex-shrink: 0;
+            color: var(--primary);
+            border: 2px solid transparent;
         }
 
         .category-tab.active {
@@ -167,16 +279,14 @@
         }
 
         .category-tab:hover:not(.active) {
-            background: rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
         }
 
         .communication-area {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
-            padding: 25px;
-            background: rgba(0, 0, 0, 0.02);
-            min-height: 400px;
+            margin-bottom: 30px;
         }
 
         .message-box {
@@ -191,10 +301,10 @@
             justify-content: center;
             align-items: center;
             transition: var(--transition);
-            border: 2px solid transparent;
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            border: 2px solid transparent;
         }
 
         .message-box::before {
@@ -223,6 +333,28 @@
             transform: scale(0.97);
         }
 
+        .favorite-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: #ccc;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .favorite-btn:hover {
+            color: #ffc107;
+            transform: scale(1.2);
+        }
+
+        .favorite-btn.active {
+            color: #ffc107;
+        }
+
         .message-box i {
             font-size: 3.2rem;
             margin-bottom: 15px;
@@ -248,9 +380,11 @@
             justify-content: center;
             padding: 25px;
             gap: 20px;
-            background: rgba(0, 0, 0, 0.02);
-            border-top: 2px solid rgba(0, 0, 0, 0.05);
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             flex-wrap: wrap;
+            margin-top: auto;
         }
 
         .control-btn {
@@ -265,14 +399,14 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 5px 15px rgba(94, 53, 177, 0.3);
-            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            font-weight: 600;
         }
 
         .control-btn:hover {
             background: var(--primary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(94, 53, 177, 0.4);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
         }
 
         .control-btn:active {
@@ -281,40 +415,97 @@
 
         .control-btn.secondary {
             background: var(--secondary);
-            box-shadow: 0 5px 15px rgba(38, 166, 154, 0.3);
+            box-shadow: 0 5px 15px rgba(46, 196, 182, 0.3);
         }
 
         .control-btn.secondary:hover {
-            background: #00897b;
-            box-shadow: 0 8px 20px rgba(38, 166, 154, 0.4);
+            background: #20a898;
+            box-shadow: 0 8px 20px rgba(46, 196, 182, 0.4);
         }
 
         .control-btn.warning {
             background: var(--accent);
-            box-shadow: 0 5px 15px rgba(255, 112, 67, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 158, 109, 0.3);
         }
 
         .control-btn.warning:hover {
-            background: #f4511e;
-            box-shadow: 0 8px 20px rgba(255, 112, 67, 0.4);
+            background: #ff8d4d;
+            box-shadow: 0 8px 20px rgba(255, 158, 109, 0.4);
         }
 
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: var(--text-dark);
-            font-size: 1rem;
-            background: rgba(0, 0, 0, 0.03);
-            width: 100%;
-            margin-top: 20px;
+        /* History Panel */
+        .history-panel {
+            background: var(--card-bg);
             border-radius: var(--radius);
-            max-width: 1200px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-top: 30px;
+            display: none;
         }
 
-        footer p {
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .close-panel {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-panel:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .history-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .history-item {
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(67, 97, 238, 0.1);
+        }
+
+        .history-item:hover {
+            background: rgba(67, 97, 238, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .history-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .history-text {
+            font-weight: 500;
+        }
+
+        .history-time {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 3px;
         }
 
         /* Animations */
@@ -334,6 +525,44 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+                padding: 20px 10px;
+                align-items: center;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .logo-text, .sidebar-title span {
+                display: none;
+            }
+            
+            .sidebar-title {
+                justify-content: center;
+            }
+            
+            .sidebar-title i {
+                font-size: 1.5rem;
+            }
+            
+            .sidebar-item span {
+                display: none;
+            }
+            
+            .sidebar-item {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .theme-toggle span {
+                display: none;
+            }
+        }
+        
         @media (max-width: 900px) {
             .communication-area {
                 grid-template-columns: repeat(3, 1fr);
@@ -342,11 +571,55 @@
             .message-display {
                 font-size: 1.8rem;
                 min-height: 100px;
-                padding: 20px;
             }
             
-            header h1 {
+            .page-title {
                 font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 15px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .logo-container {
+                flex-direction: row;
+                margin-bottom: 0;
+            }
+            
+            .sidebar-sections {
+                display: flex;
+                gap: 15px;
+            }
+            
+            .sidebar-section {
+                margin-bottom: 0;
+            }
+            
+            .sidebar-title span {
+                display: none;
+            }
+            
+            .sidebar-item span {
+                display: none;
+            }
+            
+            .theme-toggle {
+                margin-top: 0;
+                padding: 10px 15px;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
             }
         }
         
@@ -361,12 +634,17 @@
             }
             
             .control-btn {
-                width: 80%;
+                width: 100%;
                 justify-content: center;
             }
             
-            .category-tabs {
-                padding: 10px 15px;
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-container {
+                max-width: 100%;
             }
         }
         
@@ -379,16 +657,16 @@
                 font-size: 1.6rem;
             }
             
-            header h1 {
-                font-size: 1.6rem;
+            .sidebar {
+                flex-wrap: wrap;
+                gap: 10px;
             }
             
-            .theme-toggle {
-                top: 15px;
-                right: 15px;
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
+            .sidebar-sections {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 15px;
             }
         }
 
@@ -409,152 +687,268 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary);
-          
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="logo-text">Comunicador</div>
+            </div>
+            
+            <div class="sidebar-sections">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Categorias</span>
+                    </div>
+                    <div class="sidebar-item active" data-category="all">
+                        <i class="fas fa-star"></i>
+                        <span>Todas</span>
+                    </div>
+                    <div class="sidebar-item" data-category="needs">
+                        <i class="fas fa-heart"></i>
+                        <span>Necessidades</span>
+                    </div>
+                    <div class="sidebar-item" data-category="feelings">
+                        <i class="fas fa-smile"></i>
+                        <span>Sentimentos</span>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <div class="sidebar-title">
+                        <i class="fas fa-history"></i>
+                        <span>Histórico</span>
+                    </div>
+                    <div class="sidebar-item" id="showHistory">
+                        <i class="fas fa-clock"></i>
+                        <span>Ver histórico</span>
+                    </div>
+                    <div class="sidebar-item" id="showFavorites">
+                        <i class="fas fa-heart"></i>
+                        <span>Favoritos</span>
+                    </div>
+                </div>
+            </div>
+            
             <button class="theme-toggle" id="themeToggle">
+                <span>Alternar tema</span>
                 <i class="fas fa-moon"></i>
             </button>
-            <h1><i class="fas fa-comments"></i> Comunicador Amigável</h1>
-            <p>Toque nos botões para expressar o que você está sentindo ou precisa</p>
-        </header>
-        
-        <div class="message-display-container">
-            <div class="message-display" id="messageDisplay">
-                Toque em um botão para começar...
-            </div>
         </div>
         
-        <div class="category-tabs" id="categoryTabs">
-            <div class="category-tab active" data-category="all">Todas</div>
-            <div class="category-tab" data-category="needs">Necessidades</div>
-            <div class="category-tab" data-category="feelings">Sentimentos</div>
-            <div class="category-tab" data-category="activities">Atividades</div>
-            <div class="category-tab" data-category="requests">Pedidos</div>
-        </div>
-        
-        <div class="communication-area" id="communicationArea">
-            <!-- Necessidades -->
-            <div class="message-box" data-category="needs" onclick="speak('Estou com fome', 'fome')">
-                <i class="fas fa-apple-alt"></i>
-                <h3>Estou com fome</h3>
-                <p>Quero comer algo</p>
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 class="page-title">Comunicador Amigável</h1>
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Pesquisar mensagens...">
+                </div>
             </div>
             
-            <div class="message-box" data-category="needs" onclick="speak('Estou com sede', 'sede')">
-                <i class="fas fa-glass-water"></i>
-                <h3>Estou com sede</h3>
-                <p>Quero beber água</p>
+            <div class="message-display-container">
+                <div class="message-display" id="messageDisplay">
+                    Toque em um botão para começar...
+                </div>
+                <div class="message-display-actions">
+                    <button class="control-btn" onclick="repeatMessage()">
+                        <i class="fas fa-redo"></i> Repetir
+                    </button>
+                    <button class="control-btn secondary" onclick="clearMessage()">
+                        <i class="fas fa-eraser"></i> Limpar
+                    </button>
+                    <button class="control-btn warning" onclick="toggleSound()">
+                        <i class="fas fa-volume-up" id="soundIcon"></i> <span id="soundText">Som</span>
+                    </button>
+                </div>
             </div>
             
-            <div class="message-box" data-category="needs" onclick="speak('Preciso ir ao banheiro', 'banheiro')">
-                <i class="fas fa-toilet"></i>
-                <h3>Preciso ir ao banheiro</h3>
-                <p>Quero usar o banheiro</p>
+            <div class="category-tabs" id="categoryTabs">
+                <div class="category-tab active" data-category="all">Todas</div>
+                <div class="category-tab" data-category="needs">Necessidades</div>
+                <div class="category-tab" data-category="feelings">Sentimentos</div>
+                <div class="category-tab" data-category="activities">Atividades</div>
+                <div class="category-tab" data-category="requests">Pedidos</div>
+                <div class="category-tab" data-category="people">Pessoas</div>
+                <div class="category-tab" data-category="places">Lugares</div>
             </div>
             
-            <div class="message-box" data-category="needs" onclick="speak('Estou cansado', 'cansado')">
-                <i class="fas fa-bed"></i>
-                <h3>Estou cansado</h3>
-                <p>Quero descansar</p>
+            <div class="communication-area" id="communicationArea">
+                <!-- Necessidades -->
+                <div class="message-box" data-category="needs" data-id="hunger" onclick="speak('Estou com fome', 'hunger')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-apple-alt"></i>
+                    <h3>Estou com fome</h3>
+                    <p>Quero comer algo</p>
+                </div>
+                
+                <div class="message-box" data-category="needs" data-id="thirst" onclick="speak('Estou com sede', 'thirst')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-glass-water"></i>
+                    <h3>Estou com sede</h3>
+                    <p>Quero beber água</p>
+                </div>
+                
+                <div class="message-box" data-category="needs" data-id="toilet" onclick="speak('Preciso ir ao banheiro', 'toilet')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-toilet"></i>
+                    <h3>Preciso ir ao banheiro</h3>
+                    <p>Quero usar o banheiro</p>
+                </div>
+                
+                <div class="message-box" data-category="needs" data-id="tired" onclick="speak('Estou cansado', 'tired')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-bed"></i>
+                    <h3>Estou cansado</h3>
+                    <p>Quero descansar</p>
+                </div>
+                
+                <!-- Sentimentos -->
+                <div class="message-box" data-category="feelings" data-id="happy" onclick="speak('Estou feliz', 'happy')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-smile"></i>
+                    <h3>Estou feliz</h3>
+                    <p>Sinto-me bem</p>
+                </div>
+                
+                <div class="message-box" data-category="feelings" data-id="sad" onclick="speak('Estou triste', 'sad')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-sad-tear"></i>
+                    <h3>Estou triste</h3>
+                    <p>Sinto-me mal</p>
+                </div>
+                
+                <div class="message-box" data-category="feelings" data-id="scared" onclick="speak('Estou com medo', 'scared')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-flushed"></i>
+                    <h3>Estou com medo</h3>
+                    <p>Preciso de conforto</p>
+                </div>
+                
+                <div class="message-box" data-category="feelings" data-id="angry" onclick="speak('Estou bravo', 'angry')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-angry"></i>
+                    <h3>Estou bravo</h3>
+                    <p>Estou chateado</p>
+                </div>
+                
+                <!-- Atividades -->
+                <div class="message-box" data-category="activities" data-id="play" onclick="speak('Quero brincar', 'play')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Quero brincar</h3>
+                    <p>Vamos nos divertir</p>
+                </div>
+                
+                <div class="message-box" data-category="activities" data-id="draw" onclick="speak('Quero desenhar', 'draw')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-pencil-alt"></i>
+                    <h3>Quero desenhar</h3>
+                    <p>Vamos fazer arte</p>
+                </div>
+                
+                <div class="message-box" data-category="activities" data-id="music" onclick="speak('Quero ouvir música', 'music')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-music"></i>
+                    <h3>Quero ouvir música</h3>
+                    <p>Vamos cantar juntos</p>
+                </div>
+                
+                <div class="message-box" data-category="activities" data-id="read" onclick="speak('Quero ler um livro', 'read')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-book"></i>
+                    <h3>Quero ler um livro</h3>
+                    <p>Vamos ler juntos</p>
+                </div>
+                
+                <!-- Pedidos -->
+                <div class="message-box" data-category="requests" data-id="help" onclick="speak('Preciso de ajuda', 'help')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>Preciso de ajuda</h3>
+                    <p>Me ajude por favor</p>
+                </div>
+                
+                <div class="message-box" data-category="requests" data-id="hug" onclick="speak('Quero um abraço', 'hug')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-hands"></i>
+                    <h3>Quero um abraço</h3>
+                    <p>Preciso de carinho</p>
+                </div>
+                
+                <div class="message-box" data-category="requests" data-id="time" onclick="speak('Preciso de um tempo', 'time')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-hourglass-half"></i>
+                    <h3>Preciso de um tempo</h3>
+                    <p>Quero ficar sozinho</p>
+                </div>
+                
+                <div class="message-box" data-category="requests" data-id="repeat" onclick="speak('Não entendi', 'repeat')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-question-circle"></i>
+                    <h3>Não entendi</h3>
+                    <p>Pode repetir por favor?</p>
+                </div>
+                
+                <!-- Pessoas -->
+                <div class="message-box" data-category="people" data-id="mom" onclick="speak('Quero a mamãe', 'mom')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-female"></i>
+                    <h3>Quero a mamãe</h3>
+                    <p>Onde está mamãe?</p>
+                </div>
+                
+                <div class="message-box" data-category="people" data-id="dad" onclick="speak('Quero o papai', 'dad')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-male"></i>
+                    <h3>Quero o papai</h3>
+                    <p>Onde está papai?</p>
+                </div>
+                
+                <div class="message-box" data-category="people" data-id="friend" onclick="speak('Quero meu amigo', 'friend')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-user-friends"></i>
+                    <h3>Quero meu amigo</h3>
+                    <p>Posso brincar com meu amigo?</p>
+                </div>
+                
+                <div class="message-box" data-category="people" data-id="teacher" onclick="speak('Quero a professora', 'teacher')">
+                    <button class="favorite-btn"><i class="far fa-star"></i></button>
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>Quero a professora</h3>
+                    <p>Preciso falar com a professora</p>
+                </div>
             </div>
             
-            <!-- Sentimentos -->
-            <div class="message-box" data-category="feelings" onclick="speak('Estou feliz', 'feliz')">
-                <i class="fas fa-smile"></i>
-                <h3>Estou feliz</h3>
-                <p>Sinto-me bem</p>
+            <div class="history-panel" id="historyPanel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Histórico de Mensagens</h2>
+                    <button class="close-panel" id="closePanel">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="history-items" id="historyItems">
+                    <!-- Histórico será gerado aqui -->
+                </div>
             </div>
             
-            <div class="message-box" data-category="feelings" onclick="speak('Estou triste', 'triste')">
-                <i class="fas fa-sad-tear"></i>
-                <h3>Estou triste</h3>
-                <p>Sinto-me mal</p>
+            <div class="controls">
+                <button class="control-btn" onclick="showCustomMessage()">
+                    <i class="fas fa-plus"></i> Mensagem Personalizada
+                </button>
+                <button class="control-btn secondary" onclick="saveSettings()">
+                    <i class="fas fa-save"></i> Salvar Configurações
+                </button>
             </div>
-            
-            <div class="message-box" data-category="feelings" onclick="speak('Estou com medo', 'medo')">
-                <i class="fas fa-flushed"></i>
-                <h3>Estou com medo</h3>
-                <p>Preciso de conforto</p>
-            </div>
-            
-            <div class="message-box" data-category="feelings" onclick="speak('Estou bravo', 'bravo')">
-                <i class="fas fa-angry"></i>
-                <h3>Estou bravo</h3>
-                <p>Estou chateado</p>
-            </div>
-            
-            <!-- Atividades -->
-            <div class="message-box" data-category="activities" onclick="speak('Quero brincar', 'brincar')">
-                <i class="fas fa-gamepad"></i>
-                <h3>Quero brincar</h3>
-                <p>Vamos nos divertir</p>
-            </div>
-            
-            <div class="message-box" data-category="activities" onclick="speak('Quero desenhar', 'desenhar')">
-                <i class="fas fa-pencil-alt"></i>
-                <h3>Quero desenhar</h3>
-                <p>Vamos fazer arte</p>
-            </div>
-            
-            <div class="message-box" data-category="activities" onclick="speak('Quero ouvir música', 'musica')">
-                <i class="fas fa-music"></i>
-                <h3>Quero ouvir música</h3>
-                <p>Vamos cantar juntos</p>
-            </div>
-            
-            <div class="message-box" data-category="activities" onclick="speak('Quero ler um livro', 'ler')">
-                <i class="fas fa-book"></i>
-                <h3>Quero ler um livro</h3>
-                <p>Vamos ler juntos</p>
-            </div>
-            
-            <!-- Pedidos -->
-            <div class="message-box" data-category="requests" onclick="speak('Preciso de ajuda', 'ajuda')">
-                <i class="fas fa-hands-helping"></i>
-                <h3>Preciso de ajuda</h3>
-                <p>Me ajude por favor</p>
-            </div>
-            
-            <div class="message-box" data-category="requests" onclick="speak('Quero um abraço', 'abraco')">
-                <i class="fas fa-hands"></i>
-                <h3>Quero um abraço</h3>
-                <p>Preciso de carinho</p>
-            </div>
-            
-            <div class="message-box" data-category="requests" onclick="speak('Preciso de um tempo', 'tempo')">
-                <i class="fas fa-hourglass-half"></i>
-                <h3>Preciso de um tempo</h3>
-                <p>Quero ficar sozinho</p>
-            </div>
-            
-            <div class="message-box" data-category="requests" onclick="speak('Não entendi', 'entender')">
-                <i class="fas fa-question-circle"></i>
-                <h3>Não entendi</h3>
-                <p>Pode repetir por favor?</p>
-            </div>
-        </div>
-        
-        <div class="controls">
-            <button class="control-btn" onclick="repeatMessage()">
-                <i class="fas fa-redo"></i> Repetir
-            </button>
-            <button class="control-btn secondary" onclick="clearMessage()">
-                <i class="fas fa-eraser"></i> Limpar
-            </button>
-            <button class="control-btn warning" onclick="toggleSound()">
-                <i class="fas fa-volume-up" id="soundIcon"></i> <span>Som</span>
-            </button>
         </div>
     </div>
-    
-    <footer>
-        <p>Comunicador para Crianças com Autismo | Desenvolvido com ❤️ para ajudar na comunicação e expressão</p>
-    </footer>
     
     <audio id="soundEffect" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
     
@@ -563,24 +957,99 @@
         let lastMessage = '';
         let soundEnabled = true;
         let isDarkMode = false;
+        let history = [];
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || {};
         const messageColors = {
-            'fome': '#FF6B6B',
-            'sede': '#4ECDC4',
-            'banheiro': '#FFD166',
-            'cansado': '#118AB2',
-            'feliz': '#06D6A0',
-            'triste': '#5E60CE',
-            'medo': '#9C27B0',
-            'bravo': '#F44336',
-            'brincar': '#FF9E6D',
-            'desenhar': '#AB47BC',
-            'musica': '#29B6F6',
-            'ler': '#5C6BC0',
-            'ajuda': '#EF476F',
-            'abraco': '#FF80AB',
-            'tempo': '#78909C',
-            'entender': '#26C6DA'
+            'hunger': '#FF6B6B',
+            'thirst': '#4ECDC4',
+            'toilet': '#FFD166',
+            'tired': '#118AB2',
+            'happy': '#06D6A0',
+            'sad': '#5E60CE',
+            'scared': '#9C27B0',
+            'angry': '#F44336',
+            'play': '#FF9E6D',
+            'draw': '#AB47BC',
+            'music': '#29B6F6',
+            'read': '#5C6BC0',
+            'help': '#EF476F',
+            'hug': '#FF80AB',
+            'time': '#78909C',
+            'repeat': '#26C6DA',
+            'mom': '#9C27B0',
+            'dad': '#3F51B5',
+            'friend': '#4CAF50',
+            'teacher': '#FF9800'
         };
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar alternador de tema
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            
+            // Configurar filtros de categoria
+            document.querySelectorAll('.sidebar-item[data-category]').forEach(item => {
+                item.addEventListener('click', () => {
+                    filterByCategory(item.dataset.category);
+                    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                });
+            });
+            
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    filterByCategory(tab.dataset.category);
+                    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+            
+            // Configurar favoritos
+            document.querySelectorAll('.favorite-btn').forEach(btn => {
+                const box = btn.closest('.message-box');
+                const id = box.dataset.id;
+                
+                if (favorites[id]) {
+                    btn.innerHTML = '<i class="fas fa-star"></i>';
+                    btn.classList.add('active');
+                }
+                
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleFavorite(id, btn);
+                });
+            });
+            
+            // Configurar histórico
+            document.getElementById('showHistory').addEventListener('click', showHistory);
+            document.getElementById('showFavorites').addEventListener('click', showFavorites);
+            document.getElementById('closePanel').addEventListener('click', closePanel);
+            
+            // Configurar busca
+            document.getElementById('searchInput').addEventListener('input', searchMessages);
+            
+            // Carregar tema salvo
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                isDarkMode = true;
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggle').innerHTML = '<span>Alternar tema</span><i class="fas fa-sun"></i>';
+            }
+            
+            // Carregar som salvo
+            const savedSound = localStorage.getItem('sound');
+            if (savedSound === 'false') {
+                soundEnabled = false;
+                document.getElementById('soundIcon').className = 'fas fa-volume-mute';
+                document.getElementById('soundText').textContent = ' Mudo';
+            }
+            
+            // Carregar histórico
+            const savedHistory = localStorage.getItem('history');
+            if (savedHistory) {
+                history = JSON.parse(savedHistory);
+            }
+        });
 
         // Função para falar a mensagem
         function speak(message, type) {
@@ -595,8 +1064,8 @@
             }, 10);
             
             // Aplicar cor baseada no tipo
-            const color = messageColors[type] || '#5e35b1';
-            messageDisplay.style.borderColor = color;
+            const color = messageColors[type] || '#4361ee';
+            messageDisplay.parentElement.style.borderColor = color;
             messageDisplay.style.color = color;
             
             // Efeitos sonoros e fala
@@ -604,6 +1073,28 @@
                 playSound();
                 speakMessage(message);
             }
+            
+            // Adicionar ao histórico
+            addToHistory(message, type);
+        }
+
+        // Adicionar ao histórico
+        function addToHistory(message, type) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            history.unshift({
+                message,
+                type,
+                time: timeString
+            });
+            
+            // Manter apenas os últimos 20 itens
+            if (history.length > 20) {
+                history.pop();
+            }
+            
+            localStorage.setItem('history', JSON.stringify(history));
         }
 
         // Reproduzir efeito sonoro
@@ -650,8 +1141,8 @@
         function clearMessage() {
             const messageDisplay = document.getElementById('messageDisplay');
             messageDisplay.textContent = 'Toque em um botão para começar...';
-            messageDisplay.style.borderColor = '#5e35b1';
-            messageDisplay.style.color = '#5e35b1';
+            messageDisplay.parentElement.style.borderColor = '#4361ee';
+            messageDisplay.style.color = '#4361ee';
             lastMessage = '';
         }
 
@@ -659,7 +1150,7 @@
         function toggleSound() {
             soundEnabled = !soundEnabled;
             const soundIcon = document.getElementById('soundIcon');
-            const soundText = soundIcon.nextElementSibling;
+            const soundText = document.getElementById('soundText');
             
             if (soundEnabled) {
                 soundIcon.className = 'fas fa-volume-up';
@@ -668,32 +1159,15 @@
                 soundIcon.className = 'fas fa-volume-mute';
                 soundText.textContent = ' Mudo';
             }
-        }
-
-        // Alternar modo escuro/claro
-        function toggleTheme() {
-            isDarkMode = !isDarkMode;
-            const themeToggle = document.getElementById('themeToggle');
-            document.body.setAttribute('data-theme', isDarkMode ? 'dark' : '');
             
-            if (isDarkMode) {
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            }
+            localStorage.setItem('sound', soundEnabled);
         }
 
+        
         // Filtro por categoria
         function filterByCategory(category) {
             const boxes = document.querySelectorAll('.message-box');
-            const tabs = document.querySelectorAll('.category-tab');
             
-            // Atualizar guias ativas
-            tabs.forEach(tab => {
-                tab.classList.toggle('active', tab.dataset.category === category);
-            });
-            
-            // Filtrar mensagens
             boxes.forEach(box => {
                 if (category === 'all') {
                     box.style.display = 'flex';
@@ -701,27 +1175,175 @@
                     box.style.display = box.dataset.category === category ? 'flex' : 'none';
                 }
             });
+            
+            // Fechar painel se aberto
+            closePanel();
         }
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            // Configurar alternador de tema
-            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        // Alternar favorito
+        function toggleFavorite(id, btn) {
+            favorites[id] = !favorites[id];
             
-            // Configurar filtros de categoria
-            document.querySelectorAll('.category-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    filterByCategory(tab.dataset.category);
+            if (favorites[id]) {
+                btn.innerHTML = '<i class="fas fa-star"></i>';
+                btn.classList.add('active');
+            } else {
+                btn.innerHTML = '<i class="far fa-star"></i>';
+                btn.classList.remove('active');
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+
+        // Mostrar histórico
+        function showHistory() {
+            const historyPanel = document.getElementById('historyPanel');
+            const historyItems = document.getElementById('historyItems');
+            
+            historyItems.innerHTML = '';
+            
+            if (history.length === 0) {
+                historyItems.innerHTML = '<p style="text-align: center; padding: 20px;">Nenhum histórico disponível</p>';
+            } else {
+                history.forEach(item => {
+                    const icon = getIconForType(item.type);
+                    const color = messageColors[item.type] || '#4361ee';
+                    
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    historyItem.innerHTML = `
+                        <i class="${icon}" style="color: ${color}"></i>
+                        <div>
+                            <div class="history-text">${item.message}</div>
+                            <div class="history-time">${item.time}</div>
+                        </div>
+                    `;
+                    
+                    historyItem.addEventListener('click', () => {
+                        speak(item.message, item.type);
+                        closePanel();
+                    });
+                    
+                    historyItems.appendChild(historyItem);
                 });
+            }
+            
+            historyPanel.style.display = 'block';
+        }
+
+        // Mostrar favoritos
+        function showFavorites() {
+            const historyPanel = document.getElementById('historyPanel');
+            const historyItems = document.getElementById('historyItems');
+            const panelTitle = document.querySelector('.panel-title');
+            
+            panelTitle.textContent = 'Mensagens Favoritas';
+            historyItems.innerHTML = '';
+            
+            const favoriteMessages = document.querySelectorAll('.message-box');
+            let hasFavorites = false;
+            
+            favoriteMessages.forEach(box => {
+                const id = box.dataset.id;
+                
+                if (favorites[id]) {
+                    hasFavorites = true;
+                    const message = box.querySelector('h3').textContent;
+                    const icon = box.querySelector('i').className;
+                    const color = messageColors[id] || '#4361ee';
+                    
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    historyItem.innerHTML = `
+                        <i class="${icon}" style="color: ${color}"></i>
+                        <div class="history-text">${message}</div>
+                    `;
+                    
+                    historyItem.addEventListener('click', () => {
+                        speak(message, id);
+                        closePanel();
+                    });
+                    
+                    historyItems.appendChild(historyItem);
+                }
             });
             
-            // Carregar vozes quando disponíveis
-            if ('speechSynthesis' in window) {
-                speechSynthesis.onvoiceschanged = function() {
-                    // Vozes carregadas
-                };
+            if (!hasFavorites) {
+                historyItems.innerHTML = '<p style="text-align: center; padding: 20px;">Nenhum favorito adicionado</p>';
             }
-        });
+            
+            historyPanel.style.display = 'block';
+        }
+
+        // Fechar painel
+        function closePanel() {
+            document.getElementById('historyPanel').style.display = 'none';
+        }
+
+        // Buscar mensagens
+        function searchMessages() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const boxes = document.querySelectorAll('.message-box');
+            
+            boxes.forEach(box => {
+                const text = box.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    box.style.display = 'flex';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+        }
+
+        // Obter ícone para tipo de mensagem
+        function getIconForType(type) {
+            const icons = {
+                'hunger': 'fas fa-apple-alt',
+                'thirst': 'fas fa-glass-water',
+                'toilet': 'fas fa-toilet',
+                'tired': 'fas fa-bed',
+                'happy': 'fas fa-smile',
+                'sad': 'fas fa-sad-tear',
+                'scared': 'fas fa-flushed',
+                'angry': 'fas fa-angry',
+                'play': 'fas fa-gamepad',
+                'draw': 'fas fa-pencil-alt',
+                'music': 'fas fa-music',
+                'read': 'fas fa-book',
+                'help': 'fas fa-hands-helping',
+                'hug': 'fas fa-hands',
+                'time': 'fas fa-hourglass-half',
+                'repeat': 'fas fa-question-circle',
+                'mom': 'fas fa-female',
+                'dad': 'fas fa-male',
+                'friend': 'fas fa-user-friends',
+                'teacher': 'fas fa-chalkboard-teacher'
+            };
+            
+            return icons[type] || 'fas fa-comment';
+        }
+
+        // Salvar configurações
+        function saveSettings() {
+            localStorage.setItem('sound', soundEnabled);
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            
+            // Feedback visual
+            const saveBtn = document.querySelector('.control-btn.secondary');
+            saveBtn.innerHTML = '<i class="fas fa-check"></i> Configurações Salvas!';
+            setTimeout(() => {
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> Salvar Configurações';
+            }, 2000);
+        }
+
+        // Mostrar mensagem personalizada
+        function showCustomMessage() {
+            const message = prompt('Digite sua mensagem personalizada:');
+            if (message && message.trim() !== '') {
+                speak(message.trim(), 'custom');
+            }
+        }
     </script>
 </body>
 </html>
