@@ -69,7 +69,7 @@ Este projeto foi desenvolvido pensando em:
 
 1. Clone este repositório:
 ```bash
-git clone ([https://luccasfsilva.github.io/Tagarelinha/])
+https://luccasfsilva.github.io/Tagarelinha/
 ```
 
 2. Abra o arquivo `index.html` em qualquer navegador moderno.
