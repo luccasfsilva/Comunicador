@@ -69,7 +69,7 @@ Este projeto foi desenvolvido pensando em:
 
 1. Clone este repositório:
 ```bash
-git clone [https://github.com/seu-usuario/comunicador-amigavel.git](https://luccasfsilva.github.io/Tagarelinha/)
+git clone ([https://luccasfsilva.github.io/Tagarelinha/])
 ```
 
 2. Abra o arquivo `index.html` em qualquer navegador moderno.
