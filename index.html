@@ -160,6 +160,20 @@
             font-size: 1.3rem;
         }
 
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            position: absolute;
+            top: 25px;
+            right: 15px;
+            z-index: 101;
+        }
+
         /* Main Content */
         .main-content {
             flex: 1;
@@ -258,6 +272,7 @@
             box-shadow: var(--shadow);
             margin-bottom: 25px;
             scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
         }
 
         .category-tab {
@@ -589,6 +604,11 @@
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: auto;
+                z-index: 100;
             }
             
             .logo-container {
@@ -597,29 +617,53 @@
             }
             
             .sidebar-sections {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+                padding: 15px;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+                flex-direction: column;
+            }
+            
+            .sidebar-sections.active {
                 display: flex;
-                gap: 15px;
             }
             
             .sidebar-section {
-                margin-bottom: 0;
+                margin-bottom: 15px;
             }
             
             .sidebar-title span {
-                display: none;
+                display: inline;
             }
             
             .sidebar-item span {
-                display: none;
+                display: inline;
+            }
+            
+            .sidebar-item {
+                justify-content: flex-start;
             }
             
             .theme-toggle {
                 margin-top: 0;
                 padding: 10px 15px;
+                display: none;
             }
             
             .main-content {
-                padding: 20px 15px;
+                padding: 100px 15px 20px;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .logo-text {
+                display: block;
             }
         }
         
@@ -631,11 +675,14 @@
             .controls {
                 flex-direction: column;
                 align-items: center;
+                padding: 15px;
             }
             
             .control-btn {
                 width: 100%;
                 justify-content: center;
+                padding: 14px;
+                font-size: 1rem;
             }
             
             .header {
@@ -646,6 +693,21 @@
             .search-container {
                 max-width: 100%;
             }
+            
+            .message-display {
+                font-size: 1.6rem;
+                min-height: 90px;
+                padding: 15px;
+            }
+            
+            .message-display-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .message-display-actions .control-btn {
+                width: 100%;
+            }
         }
         
         @media (max-width: 480px) {
@@ -653,20 +715,71 @@
                 grid-template-columns: 1fr;
             }
             
-            .message-display {
-                font-size: 1.6rem;
+            .message-box {
+                min-height: 140px;
+                padding: 20px 15px;
+            }
+            
+            .message-box i {
+                font-size: 2.5rem;
+            }
+            
+            .message-box h3 {
+                font-size: 1.3rem;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
             }
             
             .sidebar {
-                flex-wrap: wrap;
-                gap: 10px;
+                padding: 15px 10px;
             }
             
-            .sidebar-sections {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-                margin-top: 15px;
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 2rem;
+            }
+            
+            .logo-text {
+                font-size: 1.3rem;
+            }
+            
+            .category-tabs {
+                padding: 10px 5px;
+                margin-bottom: 15px;
+            }
+            
+            .category-tab {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .history-panel {
+                padding: 15px;
+            }
+            
+            .panel-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .message-display {
+                font-size: 1.4rem;
+            }
+            
+            .message-box {
+                min-height: 130px;
+            }
+            
+            .page-title {
+                font-size: 1.3rem;
+            }
+            
+            .logo-text {
+                font-size: 1.1rem;
             }
         }
 
@@ -694,6 +807,10 @@
     <div class="app-container">
         <!-- Sidebar -->
         <div class="sidebar">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
             <div class="logo-container">
                 <div class="logo-icon">
                     <i class="fas fa-comments"></i>
@@ -701,7 +818,7 @@
                 <div class="logo-text">Comunicador</div>
             </div>
             
-            <div class="sidebar-sections">
+            <div class="sidebar-sections" id="sidebarSections">
                 <div class="sidebar-section">
                     <div class="sidebar-title">
                         <i class="fas fa-layer-group"></i>
@@ -993,6 +1110,7 @@
                     filterByCategory(item.dataset.category);
                     document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
                     item.classList.add('active');
+                    closeMenu(); // Fechar menu após seleção em dispositivos móveis
                 });
             });
             
@@ -1028,6 +1146,9 @@
             // Configurar busca
             document.getElementById('searchInput').addEventListener('input', searchMessages);
             
+            // Menu mobile
+            document.getElementById('menuToggle').addEventListener('click', toggleMenu);
+            
             // Carregar tema salvo
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
@@ -1049,6 +1170,13 @@
             if (savedHistory) {
                 history = JSON.parse(savedHistory);
             }
+            
+            // Configurar toque em qualquer lugar para fechar menu
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.sidebar') && window.innerWidth <= 768) {
+                    closeMenu();
+                }
+            });
         });
 
         // Função para falar a mensagem
@@ -1229,6 +1357,7 @@
             }
             
             historyPanel.style.display = 'block';
+            closeMenu(); // Fechar menu ao abrir histórico
         }
 
         // Mostrar favoritos
@@ -1273,6 +1402,7 @@
             }
             
             historyPanel.style.display = 'block';
+            closeMenu(); // Fechar menu ao abrir favoritos
         }
 
         // Fechar painel
@@ -1343,6 +1473,43 @@
             if (message && message.trim() !== '') {
                 speak(message.trim(), 'custom');
             }
+        }
+        
+        // Alternar tema claro/escuro
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            
+            if (isDarkMode) {
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggle').innerHTML = '<span>Alternar tema</span><i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.removeAttribute('data-theme');
+                document.getElementById('themeToggle').innerHTML = '<span>Alternar tema</span><i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        // Alternar menu mobile
+        function toggleMenu() {
+            const sidebarSections = document.getElementById('sidebarSections');
+            sidebarSections.classList.toggle('active');
+            
+            const menuIcon = document.querySelector('.menu-toggle i');
+            if (sidebarSections.classList.contains('active')) {
+                menuIcon.className = 'fas fa-times';
+            } else {
+                menuIcon.className = 'fas fa-bars';
+            }
+        }
+        
+        // Fechar menu mobile
+        function closeMenu() {
+            const sidebarSections = document.getElementById('sidebarSections');
+            sidebarSections.classList.remove('active');
+            
+            const menuIcon = document.querySelector('.menu-toggle i');
+            menuIcon.className = 'fas fa-bars';
         }
     </script>
 </body>
