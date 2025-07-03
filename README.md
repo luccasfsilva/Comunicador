@@ -3,6 +3,7 @@
 O **Comunicador Amigável** é uma aplicação web criada para auxiliar a comunicação de pessoas com autismo — especialmente crianças, adolescentes e idosos. O projeto é construído 100% com tecnologias web (HTML, CSS e JavaScript) e tem como foco acessibilidade, usabilidade e inclusão social.
 
 > *(![image](https://github.com/user-attachments/assets/6d0a8780-6bb8-4f8b-a745-9bcae7d28052))*
+> *(![image](https://github.com/user-attachments/assets/2428433e-0dd1-4fe4-a4a7-db599d29c832))*
 
 
 ---
