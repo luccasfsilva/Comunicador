@@ -2,9 +2,8 @@
 
 O **Comunicador Amigável** é uma aplicação web criada para auxiliar a comunicação de pessoas com autismo — especialmente crianças, adolescentes e idosos. O projeto é construído 100% com tecnologias web (HTML, CSS e JavaScript) e tem como foco acessibilidade, usabilidade e inclusão social.
 
-![Tela do Comunicador Amigável]((https://github.com/user-attachments/assets/d00b71d6-a9eb-46c7-bb8a-cabb040700bb)
-)
-)
+![Tela do Comunicador Amigável](![image](https://github.com/user-attachments/assets/ebfefe7c-869c-4f39-a773-8018017e2826))
+
 
 ---
 
@@ -70,7 +69,7 @@ Este projeto foi desenvolvido pensando em:
 
 1. Clone este repositório:
 ```bash
-git clone https://github.com/seu-usuario/comunicador-amigavel.git
+git clone [https://github.com/seu-usuario/comunicador-amigavel.git](https://luccasfsilva.github.io/Tagarelinha/)
 ```
 
 2. Abra o arquivo `index.html` em qualquer navegador moderno.
