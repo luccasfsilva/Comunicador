@@ -70,7 +70,7 @@ Este projeto foi desenvolvido pensando em:
 
 1. Clone este repositório:
 ```bash
-https://luccasfsilva.github.io/Tagarelinha/
+https://luccasfsilva.github.io/Comunicador/
 ```
 
 2. Abra o arquivo `index.html` em qualquer navegador moderno.
